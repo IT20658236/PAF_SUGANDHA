@@ -1,0 +1,269 @@
+
+.App {
+  text-align: center;
+}
+
+
+#left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 30%;
+  height: 100%;
+  background: #c2bebe;
+  margin-top: 60px;
+}
+
+#right {
+  float: right;
+  width: 70%;
+  height: 100%;
+  background: #fdfdfd;
+  margin-top: 100px; /* add this line */
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.profile-header {
+  background-color: #c2e1f3;
+  color: black;
+  text-align: center;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 20px auto;
+  display: block;
+}
+
+.follow-message-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.profile-details h3 {
+  font-weight: normal;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.profile-details p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+}
+.preview-image {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+
+button {
+  background-color: #3897f0;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 20px; 
+}
+
+button:hover {
+  background-color: #38a1ff;
+}
+
+button:focus {
+  outline: none;
+}
+
+button.secondary {
+  background-color: transparent;
+  border: 1px solid #dbdbdb;
+  color: #262626;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 8px;
+}
+
+button.secondary:hover {
+  background-color: #fafafa;
+  border-color: #999999;
+  color: #262626;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button-container button {
+  margin: 0 10px;
+}
+
+
+/* `--------------------------------------------------------------- */
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff3c00;
+  padding: 20px;
+  width: 100%;
+  max-width: 12000px;
+  margin: auto;
+}
+
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff3c00;
+  padding: 20px;
+}
+
+.logo-container h1 {
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.nav-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-container li {
+  margin-left: 20px;
+}
+
+.nav-container a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-container a:hover {
+  color: #03d9ff;
+}
+
+
+#imagePost {
+  width: 800px;
+  height: 800px;
+}
+
+#PostBody {
+  padding-left: 10%;
+}
+
+
+/* `--------------------------------------------------------------- */
+#addUserbody{
+  padding-top: 100px;
+}
+
+
+/* ------------------------------------------------------------------ */
+
+
+.bg-login-image {
+  background: url(https://feelgoodfoodie.net/wp-content/uploads/2018/06/Avocado-Ice-Cream-4-1.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.custom-input {
+  font-size: .8rem;
+  border-radius: 10rem;
+  padding: 1.5rem 1rem;
+}
+.custom-control-label {
+  position: relative;
+  margin-bottom: 0;
+  vertical-align: top;
+}
+
+.custom-control-label::before {
+  position: absolute;
+  top: .25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  content: "";
+  background-color: #fff;
+  border: #b7b9cc solid 1px;
+}
+
+.custom-control-label {
+color: #858796;
+}
+
+form.user .btn-user {
+  font-size: .8rem;
+  border-radius: 10rem;
+  padding: .75rem 1rem;
+}
+
+.btn-google {
+  color: #fff;
+  background-color: #ea4335;
+  border-color: #fff;
+}
+
+.btn-google:hover {
+  color: #fff;
+  background-color: #e12717;
+  border-color: #e6e6e6;
+}
+
+.btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border-color: #fff;
+}
+
+.btn-facebook:hover {
+  color: #fff;
+  background-color: #30497c;
+  border-color: #e6e6e6;
+}
