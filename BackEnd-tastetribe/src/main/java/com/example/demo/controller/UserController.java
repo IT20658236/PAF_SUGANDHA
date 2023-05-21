@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
@@ -47,15 +48,6 @@ public class UserController {
 		return ResponseEntity.ok(user);
 	}
 	
-//	// get User Name
-//	@GetMapping("/User/{userName}")
-//	public ResponseEntity<User> findByUserName(@PathVariable Long userName) {
-//		User user = UserManagementRepository.findById(userName).orElseThrow(
-//				() -> new ResourceNotFoundException("Did not have User ID : " + userName));
-//		return ResponseEntity.ok(user);
-//	}
-//	
-
 	// Update User
 	@PutMapping("/User/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable Long id,
@@ -88,12 +80,20 @@ public class UserController {
 
 	}
 	
-	@GetMapping("/login/{userId}")
-	public Optional<User> getUsers(@PathVariable long userId){
-		return UserManagementRepository.findById(userId);
+	// @GetMapping("/login/{userId}")
+	// public Optional<User> getUsers(@PathVariable long userId){
+	// 	return UserManagementRepository.findById(userId);
 		
-	}
+	// }
 	
+	@GetMapping("/login")
+	public ResponseEntity<User> loginUser(@RequestParam("userName") String userName, @RequestParam("password") String password) {
+		User user = UserManagementRepository.findByUserNameAndPassword(userName, password);
+		if (user == null) {
+			throw new ResourceNotFoundException("Invalid username or password");
+		}
+		return ResponseEntity.ok(user);
+	}
 	
 
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import UserManagementService from "../../services/UserManagementService";
 import Header from "../User_Mangement_IT20658236/HeaderBeforeLogin";
+import Swal from "sweetalert2";
 
 export default class AddUser extends Component {
   constructor(props) {
@@ -15,8 +16,68 @@ export default class AddUser extends Component {
       email: "",
       phoneNumber: "",
       profilePic: "",
+      errors: {},
+      errorMessage: ""
     };
   }
+
+  validateForm = () => {
+    const {
+      userName,
+      password,
+      role,
+      firstName,
+      lastName,
+      email,
+      phoneNumber
+    } = this.state;
+    let errors = {};
+    let isValid = true;
+
+    if (userName.trim() === "") {
+      errors.userName = "User Name is required";
+      isValid = false;
+    }
+
+    if (password.trim() === "") {
+      errors.password = "Password is required";
+      isValid = false;
+    }
+
+    if (role.trim() === "") {
+      errors.role = "Role is required";
+      isValid = false;
+    }
+
+    if (firstName.trim() === "") {
+      errors.firstName = "First Name is required";
+      isValid = false;
+    }
+
+    if (lastName.trim() === "") {
+      errors.lastName = "Last Name is required";
+      isValid = false;
+    }
+
+    if (email.trim() === "") {
+      errors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = "Email is invalid";
+      isValid = false;
+    }
+
+    if (phoneNumber.trim() === "") {
+      errors.phoneNumber = "Phone Number is required";
+      isValid = false;
+    } else if (!/^\d{10}$/.test(phoneNumber)) {
+      errors.phoneNumber = "Phone Number is invalid";
+      isValid = false;
+    }
+
+    this.setState({ errors });
+    return isValid;
+  };
 
   userNameHandler = (event) => {
     this.setState({
@@ -78,17 +139,34 @@ export default class AddUser extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    console.log(this.state);
-    UserManagementService.createUser(this.state).then((response) => {
-      console.log(response);
-      //need to modify
-      this.props.history.push("/User/:id");
-      alert("User Added Successfully");
-    });
+    if (this.validateForm()) {
+      UserManagementService.createUser(this.state)
+        .then((response) => {
+          console.log(response);
+          this.props.history.push("/Login");
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "User Added Successfully",
+          });
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 500) {
+            this.setState({
+              errorMessage:
+                "Failed to create user. Please try again later with different User Name.",
+            });
+          } else {
+            this.setState({
+              errorMessage: "An error occurred. Please try again.",
+            });
+          }
+        });
+    }
   };
 
   render() {
-    const { profilePic } = this.state;
+    const { profilePic, errors, errorMessage } = this.state;
 
     return (
       <div>
@@ -102,64 +180,113 @@ export default class AddUser extends Component {
               <div className="card col-md-6 offset-md-3 offset-md-3">
                 <h3 className="text-center">Add User</h3>
                 <div className="card-body">
+                  {errorMessage && (
+                    <div className="alert alert-danger">{errorMessage}</div>
+                  )}
                   <form onSubmit={this.submitHandler}>
                     <div className="form-group">
                       <label>User Name</label>
                       <input
                         placeholder="User Name"
                         name="userName"
-                        className="form-control"
+                        className={`form-control ${
+                          errors.userName ? "is-invalid" : ""
+                        }`}
                         value={this.state.userName}
                         onChange={this.userNameHandler}
                       />
+                      {errors.userName && (
+                        <div className="invalid-feedback">
+                          {errors.userName}
+                        </div>
+                      )}
+
                       <label>Password</label>
                       <input
                         placeholder="Password"
                         name="password"
-                        className="form-control"
+                        className={`form-control ${
+                          errors.password && "is-invalid"
+                        }`}
                         value={this.state.password}
                         onChange={this.passwordHandler}
                       />
+                      {errors.password && (
+                        <div className="invalid-feedback">
+                          {errors.password}
+                        </div>
+                      )}
                       <label>Role</label>
-                      <input
-                        placeholder="Role"
+                      <select
                         name="role"
-                        className="form-control"
+                        className={`form-control ${errors.role && "is-invalid"
+                          }`}
                         value={this.state.role}
                         onChange={this.roleHandler}
-                      />
+                      >
+                        <option value="">Select Role</option>
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                      </select>
+                      {errors.role && (
+                        <div className="invalid-feedback">{errors.role}</div>
+                      )}
                       <label>First Name</label>
                       <input
                         placeholder="First Name"
                         name="firstName"
-                        className="form-control"
+                        className={`form-control ${
+                          errors.firstName && "is-invalid"
+                        }`}
                         value={this.state.firstName}
                         onChange={this.firstNameHandler}
                       />
+                      {errors.firstName && (
+                        <div className="invalid-feedback">
+                          {errors.firstName}
+                        </div>
+                      )}
                       <label>Last Name</label>
                       <input
                         placeholder="Last Name"
                         name="lastName"
-                        className="form-control"
+                        className={`form-control ${
+                          errors.lastName && "is-invalid"
+                        }`}
                         value={this.state.lastName}
                         onChange={this.lastNameHandler}
                       />
+                      {errors.lastName && (
+                        <div className="invalid-feedback">
+                          {errors.lastName}
+                        </div>
+                      )}
                       <label>Email</label>
                       <input
                         placeholder="Email"
                         name="email"
-                        className="form-control"
+                        className={`form-control ${errors.email && "is-invalid"}`}
                         value={this.state.email}
                         onChange={this.emailHandler}
                       />
+                      {errors.email && (
+                        <div className="invalid-feedback">{errors.email}</div>
+                      )}
                       <label>Phone Number</label>
                       <input
                         placeholder="Phone Number"
                         name="phoneNumber"
-                        className="form-control"
+                        className={`form-control ${
+                          errors.phoneNumber && "is-invalid"
+                        }`}
                         value={this.state.phoneNumber}
                         onChange={this.phoneNumberHandler}
                       />
+                      {errors.phoneNumber && (
+                        <div className="invalid-feedback">
+                          {errors.phoneNumber}
+                        </div>
+                      )}
                       <div className="form-group">
                         <label>Profile Picture</label>
                         {profilePic && (
@@ -196,9 +323,10 @@ export default class AddUser extends Component {
                           )}
                         </div>
                       </div>
+                      
                     </div>
                     <div className="form-group">
-                      <button type="submit" className="btn btn-success">
+                      <button type="submit" className="btn btn-success" onClick={this.showAlert}>
                         Save
                       </button>
                     </div>

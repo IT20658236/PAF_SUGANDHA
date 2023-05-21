@@ -149,5 +149,10 @@ public class User {
 		this.profilePic = profilePic;
 	}
 
+
+	public User orElseThrow(Object object) {
+		return null;
+	}
+
 	
 }

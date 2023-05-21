@@ -1,17 +1,45 @@
 import React, { useState } from "react";
 import Header from "../User_Mangement_IT20658236/HeaderBeforeLogin";
 import { useHistory } from "react-router-dom";
+import UserManagementService from "../../services/UserManagementService";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // prevent default form submission behavior
-    // add your logic here to authenticate the user and redirect to the dashboard
-    // for example, you can use the following code to redirect to the dashboard:
-    history.push("/dashboard");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await UserManagementService.loginUser(userName, password);
+      const user = response.data;
+
+      if (response.status === 200) {
+        history.push(`/User/${user.userId}`);
+        console.log("User ID:", user.userId); // Print user ID to console
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Successfully logged in to the system!",
+        });
+      } else {
+        console.log("Invalid login");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Please check your username and password.",
+        });
+      }
+    } catch (error) {
+      console.log("Login error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please check your username and password.",
+      });
+    }
   };
 
   return (
@@ -37,13 +65,14 @@ const Login = () => {
                         <form onSubmit={handleSubmit} className="user">
                           <div className="form-group">
                             <input
-                              type="email"
                               className="form-control form-control-user custom-input"
                               id="exampleInputEmail"
                               aria-describedby="emailHelp"
                               placeholder="Enter Email Address..."
-                              value={email}
-                              onChange={(event) => setEmail(event.target.value)}
+                              value={userName}
+                              onChange={(event) =>
+                                setUserName(event.target.value)
+                              }
                               required
                             />
                           </div>
@@ -104,7 +133,7 @@ const Login = () => {
                           </a>
                         </div>
                         <div className="text-center">
-                          <a className="small" href="#">
+                          <a className="small" href="http://localhost:3000/Add-User">
                             Create an Account!
                           </a>
                         </div>

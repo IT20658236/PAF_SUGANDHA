@@ -11,7 +11,7 @@
   bottom: 0;
   width: 30%;
   height: 100%;
-  background: #c2bebe;
+  background: #dbd5d5;
   margin-top: 60px;
 }
 
@@ -266,4 +266,55 @@ form.user .btn-user {
   color: #fff;
   background-color: #30497c;
   border-color: #e6e6e6;
+}
+
+
+/* ------------------------------------------------------------------ */
+#findFriend1 {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.card1 {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the cards horizontally */
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  flex-basis: calc(33.33% - 40px); /* Set flex basis to 33.33% for 3 cards per row */
+  margin-right: 20px; /* Add margin between cards */
+}
+
+.profile-pic1 {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.card-details1 {
+  display: flex;
+  flex-direction: column;
+}
+
+#friendContainer1 {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the cards vertically */
+  margin-left: 2%;
+}
+
+#friendContainerCrdImg1
+.card1 {
+  
+  flex-basis: calc(50% - 20px); /* Set flex basis to 50% for 2 cards per row */
+}
+
+#friendContainerCrdDetails1 {
+  margin-left: 10%;
+  flex: 1; /* Take up remaining horizontal space */
 }

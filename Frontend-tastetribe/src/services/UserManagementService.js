@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const USER_MANAGEMENT_API_BASE_URL = "http://localhost:8080/api/v1/User";
+const API_BASE_URL = "http://localhost:8080/api/v1";
 
 class UserManagementService {
 
@@ -29,10 +30,16 @@ class UserManagementService {
         return axios.delete(USER_MANAGEMENT_API_BASE_URL + "/" + id);
     }
 
-    //ForLogin
-    getUser(id){
-        return axios.get(USER_MANAGEMENT_API_BASE_URL+"/login/"+id);
-    }
+    // //ForLogin
+    // getUser(id){
+    //     return axios.get(USER_MANAGEMENT_API_BASE_URL+"/login/"+id);
+    // }
+
+    // Login user
+  loginUser(userName, password) {
+    const url = `${API_BASE_URL}/login?userName=${userName}&password=${password}`;
+    return axios.get(url);
+  }
 
 
 }

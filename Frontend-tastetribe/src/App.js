@@ -5,6 +5,8 @@ import UserProfile from "./components/User_Mangement_IT20658236/UserProfile";
 import AddUser from "./components/User_Mangement_IT20658236/AddUser";
 import EditUser from "./components/User_Mangement_IT20658236/EditUser";
 import Login from "./components/Comman/Login";
+import FindFriends from "./components/User_Mangement_IT20658236/FindFriends";
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
             <Route path="/Add-User" component={AddUser} />
             <Route path="/User/:id" component={UserProfile} />
             <Route path="/Edit-User/:id" component={EditUser} />
+            <Route exact path="/Find-Friends" component={FindFriends} />
           </Switch>
         </div>
       </Router>
